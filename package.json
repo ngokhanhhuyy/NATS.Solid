@@ -1,0 +1,26 @@
+{
+  "name": "nats-solid",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "rsbuild build",
+    "dev": "rsbuild dev --open",
+    "preview": "rsbuild preview"
+  },
+  "dependencies": {
+    "@solidjs/router": "^0.15.3",
+    "bootstrap": "^5.3.3",
+    "bootstrap-icons": "^1.11.3",
+    "eslint": "^9.23.0",
+    "solid-js": "^1.9.5"
+  },
+  "devDependencies": {
+    "@rsbuild/core": "^1.2.16",
+    "@rsbuild/plugin-babel": "^1.0.4",
+    "@rsbuild/plugin-solid": "^1.0.5",
+    "@types/bootstrap": "^5.2.10",
+    "@types/node": "^22.13.13",
+    "typescript": "^5.8.2"
+  }
+}
