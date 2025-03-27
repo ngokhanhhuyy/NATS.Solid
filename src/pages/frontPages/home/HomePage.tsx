@@ -17,6 +17,7 @@ import styles from "./HomePage.module.css";
 // Child components.
 import SliderItemList from "./SliderItemList";
 import SummaryItemList from "./SummaryItemList";
+import AboutUsIntroduction from "./AboutUsIntroduction";
 import CatalogItemList from "./CatalogItemList";
 // import EnquiryForm from "@/components/layout/frontPages/enquiryFormComponent";
 
@@ -69,64 +70,29 @@ async function initializeModelAsync() {
 
 // Component.
 export default function HomePage() {
-  const [model] = createResource<Model>(initializeModelAsync);
-  console.log(model == null);
+  let [model] = $resource<Model>(initializeModelAsync);
+
+  // Computed.
+  const applicationNameContainerClassName = [
+    "container-fluid text-center text-white fw-bold p-2 mb-3 shadow",
+    styles.applicationNameContainer
+  ].join(" ");
 
 	return (
-    <Show when={model()}>
-      {(model) => (
+    <Show when={model}>
         <div class="container-fluid p-0">
           <SliderItemList model={model().sliderItems} />
 
           {/* ApplicationName */}
-          <div
-            class={[
-              "container-fluid text-center text-white fw-bold p-2 mb-3 shadow",
-              styles.applicationNameContainer
-            ].join(" ")}
-          >
-            {model().generalSettings.applicationName}
+          <div class={applicationNameContainerClassName}>
+            {model.generalSettings.applicationName}
           </div>
 
           {/* SummaryItems */}
           <SummaryItemList model={model().summaryItems} />
 
           {/* AboutUsIntroduction */}
-          <div class="container-fluid bg-success text-white fs-5 mb-5 shadow">
-            <div class="container">
-              <div class="row justify-content-center align-items-stretch">
-                <div
-                  class={[
-                    "col col-xl-6 col-lg-8 col-12 overflow-hidden",
-                    "d-flex align-items-center p-4",
-                  ].join(" ")}
-                >
-                  <img
-                    src={model().aboutUsIntroduction.thumbnailUrl}
-                    class="w-100 h-auto rounded-3"
-                    alt="Về chúng tôi"
-                  />
-                </div>
-                <div
-                  class={[
-                    "col-xl col-lg-8 col p-4 pt-3 d-flex flex-column",
-                    "justify-content-center align-items-start",
-                  ].join(" ")}
-                >
-                  <h2 class="mb-2">Về chúng tôi</h2>
-                  <p>{model().aboutUsIntroduction.aboutUsContent}</p>
-                  <a
-                    asp-area="FrontPages"
-                    asp-controller="AboutUs"
-                    asp-action="Index"
-                    class="btn btn-outline-light mt-3"
-                  >
-                    Tìm hiểu thêm
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
+          <AboutUsIntroduction model={model().aboutUsIntroduction} />
 
           {/* CatalogItems */}
           <CatalogItemList title="Dịch vụ" model={model().services} />
@@ -136,8 +102,6 @@ export default function HomePage() {
           {/* Enquiry */}
           {/* <EnquiryForm /> */}
         </div>
-      )}
     </Show>
-		
 	);
 }

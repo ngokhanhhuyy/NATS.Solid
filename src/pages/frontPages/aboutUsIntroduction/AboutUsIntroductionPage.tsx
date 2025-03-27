@@ -1,29 +1,27 @@
-import { createSignal, createMemo, For, Show } from "solid-js";
-
 export default function AboutUsIntroductionPage() {
-  const [getItems, setItems] = createSignal<number[]>([]);
-  const getLargestItem = createMemo<number>(() => Math.max(...getItems()));
-  const getDesiredItem = createMemo<number | null>(() => {
-    const largestItem = getLargestItem();
-    if (isFinite(largestItem) && largestItem % 2 === 0) {
-      return largestItem;
-    }
+    let [resource] = $resource<number>(async () => 0);
+    let items = $signal<number[]>([]);
+    let largestItem = $memo<number | null>(items.length > 0 ? Math.max(...items) : null);
 
-    return null;
-  });
+    return (
+        <div class="container">
+            <button
+                class="btn btn-primary"
+                onClick={() => items = [...items, largestItem != null ? largestItem + 1 : 0]}
+            >
+                Add
+            </button>
 
-  return (
-    <div class="container">
-      <button
-        class="btn btn-primary"
-        onClick={() => setItems(items => [...items, getLargestItem() + 1])}
-      >
-        Add
-      </button>
-      
-      <Show when={getDesiredItem()} fallback={<>null</>}>
-        {<>{getDesiredItem()}</>}
-      </Show>
-    </div>
-  )
+            <TestingChild model={items} />
+        </div>
+    );
+}
+
+function TestingChild(props: { model: number[] }) {
+    return (
+        <>
+            {props.model}
+            <For each={props.model}>{(item) => <span class="mx-3">{item}</span>}</For>
+        </>
+    );
 }

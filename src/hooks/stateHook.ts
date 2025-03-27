@@ -1,5 +1,5 @@
-import { createSignal } from "solid-js";
+// import { createSignal } from "solid-js";
 
-export type StateGetter<T
+// export type StateGetter<T>
 
-export function createState<T>(): []
+// export function createState<T>(): []

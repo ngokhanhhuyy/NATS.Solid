@@ -18,8 +18,7 @@ export default function Footer() {
   const [model] = createResource<Model>(async () => {
     const [contactResponseDtos, generalSettingsResponseDto] = await Promise.all([
       getContactListAsync(),
-      getGeneralSettingsAsync(),
-      new Promise<void>(resolve => setTimeout(resolve, 1500))
+      getGeneralSettingsAsync()
     ]);
 
     return {

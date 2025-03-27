@@ -11,7 +11,7 @@ export default function SummaryItemList(props: SummaryItemListProps) {
 	// Computed.
 	function computeLinkClassName(): string {
 		return `col col-xl-3 col-md-6 col-12 d-flex flex-column\
-		 				align-items-center ${styles.link}`;
+		        align-items-center ${styles.link}`;
 	}
 
 	return (
@@ -29,7 +29,7 @@ export default function SummaryItemList(props: SummaryItemListProps) {
                 alt={getItem().name}
               />
 
-              <h2 class="text-center text-success mb-2">{getItem().name}</h2>
+              <h4 class="text-center text-success mb-2">{getItem().name}</h4>
 
               <p>{getItem().summaryContent}</p>
             </A>
