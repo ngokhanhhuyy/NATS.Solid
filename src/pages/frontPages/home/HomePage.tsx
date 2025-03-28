@@ -70,7 +70,7 @@ async function initializeModelAsync() {
 
 // Component.
 export default function HomePage() {
-  let [model] = $resource<Model>(initializeModelAsync);
+  const [getModel] = createResource<Model>(initializeModelAsync);
 
   // Computed.
   const applicationNameContainerClassName = [
@@ -79,29 +79,31 @@ export default function HomePage() {
   ].join(" ");
 
 	return (
-    <Show when={model}>
+    <Show when={getModel()}>
+      {getModel => (
         <div class="container-fluid p-0">
-          <SliderItemList model={model().sliderItems} />
+          <SliderItemList model={getModel().sliderItems} />
 
           {/* ApplicationName */}
           <div class={applicationNameContainerClassName}>
-            {model.generalSettings.applicationName}
+            {getModel().generalSettings.applicationName}
           </div>
 
           {/* SummaryItems */}
-          <SummaryItemList model={model().summaryItems} />
+          <SummaryItemList model={getModel().summaryItems} />
 
           {/* AboutUsIntroduction */}
-          <AboutUsIntroduction model={model().aboutUsIntroduction} />
+          <AboutUsIntroduction model={getModel().aboutUsIntroduction} />
 
           {/* CatalogItems */}
-          <CatalogItemList title="Dịch vụ" model={model().services} />
-          <CatalogItemList title="Khoá học" model={model().courses} />
+          <CatalogItemList title="Dịch vụ" model={getModel().services} />
+          <CatalogItemList title="Khoá học" model={getModel().courses} />
           {/* <CatalogItemList title="Sản phẩm" model={props.model.products} /> */}
 
           {/* Enquiry */}
           {/* <EnquiryForm /> */}
         </div>
+      )}
     </Show>
 	);
 }
